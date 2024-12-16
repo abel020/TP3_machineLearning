@@ -1,0 +1,207 @@
+/* Typography */
+body, ul, li, p, a, label, input, div {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: #212934; /* Color de texto predeterminado (oscuro) */
+}
+
+.h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 48px;
+  font-weight: 200;
+}
+
+.h2 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+}
+
+/* General - Eliminando colores globales */
+.text-warning, .text-muted, .text-success, .text-light {
+  color: inherit !important; /* Elimina colores de texto globales */
+}
+
+.bg-dark, .bg-light, .bg-black, .bg-success {
+  background-color: inherit !important; /* Elimina fondos globales */
+}
+
+/* Advertencia (color rojo) */
+.text-danger {
+  color: red; /* Solo rojo para advertencias */
+}
+
+/* Ajustes en botones */
+.btn-success {
+  background-color: #59ab6e;
+  border-color: #56ae6c;
+}
+
+.pagination .page-link:hover {
+  color: #000;
+}
+
+.pagination .page-link:hover, .pagination .page-link.active {
+  background-color: #69bb7e;
+  color: #fff;
+}
+
+/* Nav */
+#templatemo_nav_top {
+  min-height: 40px;
+}
+
+#templatemo_nav_top * {
+  font-size: .9em;
+}
+
+#templatemo_main_nav a {
+  color: #212934; /* Color predeterminado para los enlaces */
+}
+
+#templatemo_main_nav a:hover {
+  color: #69bb7e;
+}
+
+#templatemo_main_nav .navbar .nav-icon {
+  margin-right: 20px;
+}
+
+/* Hero Carousel */
+#template-mo-zay-hero-carousel {
+  background: #efefef;
+}
+
+/* Accordion */
+.templatemo-accordion a {
+  color: #000;
+}
+
+.templatemo-accordion a:hover {
+  color: #333d4a;
+}
+
+/* Ajustes en Productos */
+.product-wap {
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.10);
+}
+
+.product-wap .product-color-dot {
+  width: 12px;
+  height: 12px;
+}
+
+.card.product-wap .card .product-overlay {
+  background: rgba(0, 0, 0, .2);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s;
+}
+
+.card.product-wap:hover .card .product-overlay {
+  visibility: visible;
+  opacity: 1;
+}
+
+.card.product-wap a {
+  color: #000;
+}
+
+/* Brand */
+.brand-img {
+  filter: grayscale(100%);
+  opacity: 0.5;
+  transition: .5s;
+}
+
+.brand-img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* Footer */
+#tempaltemo_footer .container {
+  width: 100%;
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#tempaltemo_footer a {
+  color: #dcdde1;
+}
+
+#tempaltemo_footer a:hover {
+  color: #68bb7d;
+}
+
+#tempaltemo_footer ul.footer-link-list li {
+  padding-top: 10px;
+}
+
+#tempaltemo_footer ul.footer-icons li {
+  width: 2.6em;
+  height: 2.6em;
+  line-height: 2.6em;
+}
+
+#tempaltemo_footer ul.footer-icons li:hover {
+  background-color: #cfd6e1;
+  transition: .5s;
+}
+
+#tempaltemo_footer ul.footer-icons li:hover i {
+  color: #212934;
+  transition: .5s;
+}
+
+#tempaltemo_footer .border-light {
+  border-color: #2d343f;
+}
+
+/* Alineaciones de los elementos */
+.form-control {
+  border: 1px solid #e8e8e8;
+  text-align: left; /* Alinea el texto dentro de los campos de formulario a la izquierda */
+}
+
+/* Ajustes para dispositivos pequeños (menos de 576px) */
+@media (max-width: 575px) {
+  .product-wap .h3, .product-wap li, .product-wap i, .product-wap p {
+    font-size: 14px; /* Ajusta el tamaño de texto en pantallas pequeñas */
+  }
+}
+
+/* Ajustes para dispositivos medianos (tablets, 768px y más) */
+@media (min-width: 768px) {
+  #templatemo_main_nav .navbar-nav {
+    max-width: 450px;
+  }
+}
+
+/* Ajustes para dispositivos grandes (desktops, 992px y más) */
+@media (min-width: 992px) {
+  #templatemo_main_nav .navbar-nav {
+    max-width: 550px;
+  }
+
+  .product-wap .h3, .product-wap li, .product-wap i, .product-wap p {
+    font-size: 18px;
+  }
+
+  .product-wap .product-color-dot {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Ajustes para dispositivos extra grandes (pantallas muy grandes, 1200px y más) */
+@media (min-width: 1200px) {
+  /* Aquí puedes agregar reglas adicionales si lo necesitas */
+}
