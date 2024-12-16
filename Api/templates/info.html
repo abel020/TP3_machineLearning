@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block template %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consejos de Prevención y FAQs sobre la Diabetes</title>
+    <style>
+
+        .header-image {
+            width: 27%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+        .title {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .title h2 {
+            font-size: 16px;
+            color: #888;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .title h1 {
+            font-size: 28px;
+            color: #333;
+            margin: 10px 0;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        .content h2 {
+            font-size: 22px;
+            color: #3498db;
+            margin-top: 20px;
+        }
+        .content a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .content a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="{% static 'imagenes/prevencion.jpg' %}" alt="Imagen de prevencion" class="header-image">
+
+        <div class="title">
+            <h2>Salud Preventiva</h2>
+            <h1>Consejos de Prevención y FAQs sobre la Diabetes</h1>
+        </div>
+
+        <div class="content">
+            <h2>Consejos de prevención para cada tipo de diagnóstico</h2>
+            
+            <p><strong>Diabetes Tipo 1:</strong> Aunque no se puede prevenir, llevar un estilo de vida saludable es esencial. Controla tus niveles de glucosa, sigue las indicaciones médicas y realiza ejercicio regularmente.</p>
+            
+            <p><strong>Diabetes Tipo 2:</strong> Mantén un peso saludable, come una dieta equilibrada, realiza actividad física y evita el tabaco y el alcohol en exceso. Haz chequeos regulares para monitorear tus niveles de glucosa.</p>
+            
+            <p><strong>Prediabetes:</strong> Mejora tu alimentación, haz ejercicio regularmente, pierde peso si es necesario, y controla el estrés. Consulta a un médico para un monitoreo frecuente de la glucosa.</p>
+
+            <p><strong>Estilo de Vida Saludable:</strong> Mantén una nutrición adecuada, realiza actividad física diaria, bebe suficiente agua y duerme bien. Realiza chequeos médicos regulares para monitorear la salud en general.</p>
+
+            <h2>Preguntas Frecuentes (FAQs)</h2>
+            
+            <p><strong>¿Qué es la diabetes?</strong> Es una enfermedad crónica caracterizada por niveles altos de glucosa en sangre, debido a una producción insuficiente de insulina o su uso ineficiente.</p>
+
+            <p><strong>¿Cuál es la diferencia entre diabetes tipo 1 y tipo 2?</strong> La diabetes tipo 1 es autoinmune y generalmente se desarrolla en la infancia, mientras que la tipo 2 es común en adultos y está relacionada con el estilo de vida.</p>
+            
+            <p><strong>¿Qué es la prediabetes?</strong> Es una condición donde los niveles de glucosa son más altos de lo normal, pero no lo suficiente para ser diabetes. Es una señal de alerta para prevenir diabetes tipo 2.</p>
+
+            <p><strong>¿Qué síntomas tiene la diabetes?</strong> Sed excesiva, hambre extrema, necesidad de orinar con frecuencia, fatiga y visión borrosa, entre otros. Es recomendable realizarse chequeos si tienes síntomas.</p>
+
+            <p><strong>¿La diabetes se puede curar?</strong> No tiene cura, pero puede controlarse. La prediabetes, sin embargo, a menudo se puede revertir con cambios en el estilo de vida.</p>
+
+            <p><strong>¿Qué debo hacer si tengo antecedentes familiares de diabetes?</strong> Llevar un estilo de vida saludable, hacer chequeos regulares y consultar con un médico para evaluar el riesgo.</p>
+        </div>
+    </div>
+
+{% endblock %}

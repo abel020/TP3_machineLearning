@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}Sistema ABC - Resultados de Diabetes{% endblock %}
+
+{% block template %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Pruebas de Diabetes</title>
+    <style>
+      
+        .header-image {
+            width: 25%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+        .title {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .title h2 {
+            font-size: 16px;
+            color: #888;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .title h1 {
+            font-size: 28px;
+            color: #333;
+            margin: 10px 0;
+        }
+        .resultado {
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .mensaje {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .consejos, .proximos-pasos {
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="{% static 'imagenes/prediabe.jpg' %}" alt="Imagen de resultados de pre-diabetes" class="header-image">
+        <div class="title">
+            <h2>Resultados de Pruebas</h2>
+            <h1>Consejos si tienes Prediabetes</h1>
+        </div>
+
+     
+
+        <div class="resultado" id="prediabetes">
+            <div class="mensaje">Su prueba indica que tiene prediabetes. Esto significa que sus niveles de glucosa en sangre están elevados, pero aún no han alcanzado el umbral para ser considerados diabetes.</div>
+            <div class="informacion-adicional">
+                <h2>Información Adicional:</h2>
+                <div class="consejos">Consejos para Prevención: "La prediabetes es una señal de advertencia, pero también una oportunidad para realizar cambios que pueden prevenir el desarrollo de diabetes. Reduzca el consumo de azúcares y carbohidratos refinados, incremente su actividad física y mantenga un peso saludable."</div>
+                <div class="proximos-pasos">Próximos Pasos: "Es recomendable consultar con su médico para monitorear sus niveles de glucosa y recibir una guía específica sobre cómo mejorar sus hábitos de salud."</div>
+            </div>
+        </div>
+
+      
+
+    </div>
+
+{% endblock %}

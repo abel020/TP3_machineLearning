@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}Sistema ABC - Servicios{% endblock %}
+
+{% block template %}
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 Enfermedades Asociadas a la Diabetes</title>
+    <style>
+    
+        /* Imagen de encabezado */
+        .header-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Título y subtítulo */
+        .title {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .title h2 {
+            font-size: 16px;
+            color: #888;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .title h1 {
+            font-size: 28px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        /* Estilo del texto */
+        .content {
+            margin-top: 20px;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .content p strong {
+            font-weight: bold;
+        }
+
+        /* Enlaces */
+        .content a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="max-width: 800px; margin: auto; text-align: center; padding: 20px;">
+        <!-- Video de encabezado -->
+        <video controls style="width: 100%; height: auto; border-radius: 8px;">
+            <source src="{% static 'videos/diabetes.mp4' %}" type="video/mp4">
+            
+        </video>
+
+        <!-- Título y subtítulo -->
+        <div class="title">
+            <h2 style="font-size: 16px; color: #888; letter-spacing: 1px; text-transform: uppercase;">Salud General</h2>
+            <h1 style="font-size: 28px; color: #333; margin: 10px 0;">12 Enfermedades Asociadas a la Diabetes</h1>
+        </div>
+
+        <!-- Contenido del artículo -->
+        <div class="content" style="text-align: justify; margin-top: 20px;">
+            <p>La diabetes es una enfermedad metabólica que se caracteriza por niveles elevados de glucosa en la sangre. Existen dos tipos principales de diabetes: tipo 1 y tipo 2. En la diabetes tipo 1, el cuerpo no produce insulina, una hormona necesaria para que las células utilicen la glucosa como energía. En la diabetes tipo 2, el cuerpo no produce suficiente insulina o no la usa adecuadamente. <strong>Hasta el 95 % de los casos de diabetes son de tipo 2.</strong></p>
+            <p>Fuentes epidemiológicas estiman que 573 millones de personas adultas en el mundo viven con diabetes, o lo que es lo mismo, 1 de cada 10 habitantes. Vamos más allá, pues 6,7 millones de fallecimientos se atribuyen a esta causa de forma anual. Es importantísimo conocer los efectos sobre la salud de esta condición para tomársela en serio y ponerse en manos de un profesional ante cualquier sospecha, por mínima que sea. Por esta razón, en las siguientes líneas te mostramos 12 enfermedades asociadas a la diabetes.</p>
+            
+            <h2 style="font-size: 22px; color: #3498db; margin-top: 20px;">1. Hipertensión</h2>
+            <p>Los pacientes con diabetes mellitus tienen mayor probabilidad de desarrollar hipertensión debido a la resistencia arterial periférica y el volumen elevado de líquidos en el cuerpo. Esto puede desencadenar otras enfermedades.</p>
+
+            <h2 style="font-size: 22px; color: #3498db; margin-top: 20px;">2. Enfermedad Renal</h2>
+            <p>La diabetes puede llevar a enfermedad renal crónica, afectando a uno de cada tres adultos diabéticos. Este daño es causado por las altas concentraciones de glucosa en sangre que afectan a los vasos sanguíneos renales y las nefronas.</p>
+
+            <h2 style="font-size: 22px; color: #3498db; margin-top: 20px;">3. Retinopatía Diabética</h2>
+            <p>Esta complicación afecta a la retina de los ojos, provocando problemas de visión y potencial pérdida visual. Se debe a la obstrucción de vasos sanguíneos por exceso de glucosa.</p>
+
+            <h2 style="font-size: 22px; color: #3498db; margin-top: 20px;">4. Neuropatía Diabética</h2>
+            <p>La diabetes puede dañar los nervios en todo el cuerpo, causando desde dolor en las extremidades hasta problemas funcionales en órganos como la vejiga o el corazón.</p>
+
+            <h2 style="font-size: 22px; color: #3498db; margin-top: 20px;">5. Enfermedad del Corazón</h2>
+            <p>Los niveles elevados de glucosa aumentan el riesgo de enfermedades cardiovasculares, ya que dañan los vasos sanguíneos y los nervios del corazón.</p>
+
+            <h2 style="font-size: 22px; color: #3498db; margin-top: 20px;">6. Apnea del Sueño</h2>
+            <p>Las personas con diabetes tienen mayor riesgo de apnea del sueño, un trastorno en el que se detiene la respiración mientras se duerme, agravando los niveles de glucosa en sangre.</p>
+
+            <h2 style="font-size: 22px; color: #3498db; margin-top: 20px;">7. Afecciones de la Piel</h2>
+            <p>La diabetes está asociada con varias afecciones de la piel, como la acantosis nigricans, la dermopatía diabética, necrobiosis lipoídica, bulosis diabética, xantomatosis eruptiva e infecciones cutáneas.</p>
+
+            <p><strong>Conclusión:</strong> Esta condición puede afectar múltiples sistemas del cuerpo, por lo que es esencial su detección y tratamiento oportunos. Consultar con un profesional de salud es fundamental ante cualquier sospecha.</p>
+        </div>
+    </div>
+{% endblock %}

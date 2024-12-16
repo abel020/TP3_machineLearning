@@ -1,0 +1,278 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Íconos -->
+    <link rel="icon" href="{% static 'imagenes/logo.jpg' %}">
+
+    <!-- Archivos CSS personalizados -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- Cargar estilos de fuentes después del diseño de la página -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+
+    <!-- TemplateMo Info -->
+    <title>Sistema Diabetes</title>
+    <!-- Estilos CSS personalizados -->
+    <style>
+        .footer-link-list a:hover {
+            color: #ffd700;
+            /* Cambia el color a dorado al pasar el puntero */
+            text-decoration: underline;
+            /* Subraya el texto al pasar el puntero */
+        }
+
+        /* Cambiar el fondo del header y footer a celeste oscuro y las letras a blancas */
+        #templatemo_nav_top,
+        #templatemo_footer {
+            background-color: #006f8e;
+            /* Celeste oscuro */
+        }
+
+        #templatemo_nav_top a,
+        #templatemo_footer a {
+            color: white;
+            /* Cambiar el color de los enlaces a blanco */
+        }
+
+        #templatemo_footer {
+            color: white;
+            /* Cambiar el color del texto del pie de página */
+        }
+
+        #templatemo_footer h2,
+        #templatemo_nav_top h2 {
+            color: white;
+            /* Cambiar los títulos a blanco */
+        }
+
+        /* Evitar que las letras de "Contacto" y otras se muestren en rojo */
+        .navbar-nav .nav-item a {
+            color: rgb(0, 0, 0) !important;
+            /* Asegurarse de que los enlaces no sean rojos */
+        }
+
+        /* Cambiar los textos en las secciones de contacto a blanco */
+        .navbar-nav .nav-item a:hover {
+            color: #b3951e !important;
+            /* Puedes usar otro color si deseas un efecto hover */
+        }
+
+        /* Ajuste de los colores de los íconos para que no se vean rojos */
+        .navbar-nav .nav-item a i {
+            color: white !important;
+            /* Cambiar color de los íconos a blanco */
+        }
+
+        /* Asegurarse de que los textos de los formularios también sean blancos */
+        input,
+        textarea,
+        select {
+            color: black;
+            /* Para que el texto dentro de los inputs sea legible */
+        }
+
+        /* Fondo blanco para los campos de búsqueda */
+        .search-input {
+            background-color: #f8f9fa;
+        }
+
+        /* Evitar que los títulos de secciones se vean en rojo */
+        h2 {
+            color: rgb(0, 0, 0);
+            /* Para asegurar que los títulos sean blancos */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg navbar-light d-none d-lg-block" id="templatemo_nav_top"
+        style="background-color: #0a6996;">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div class="text-white">
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-white text-decoration-none"
+                        href="mailto:info@company.com">DiabetesConsulta@gmail.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-white text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                </div>
+                <div>
+                    <a class="text-white" href="https://www.facebook.com/profile.php?id=100083265082049" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="fab fa-facebook-f fa-sm fa-fw me-2"></i>
+                    </a>
+                    <a class="text-white" href="https://www.instagram.com/maria.nutriologia/" target="_blank"><i
+                            class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-white" href="https://twitter.com/diabetesexpeday?lang=es" target="_blank"><i
+                            class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                    <a class="text-white" href="https://www.linkedin.com/" target="_blank"><i
+                            class="fab fa-linkedin fa-sm fa-fw"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="{% url 'index' %}">
+                <img src="{% static 'imagenes/logo.jpg' %}" style="height: 65px;">
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="templatemo_main_nav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menú de navegación -->
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <!-- Menú Desplegable de Formularios -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">Formulario</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'servicios' %}">Enfermedades</a></li>
+                                <li><a class="dropdown-item" href="{% url 'formulario' %}">Precciones</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Menú Desplegable de Sabías Que...? -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">Resultados</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'diabetes' %}">Diabetes</a></li>
+                                <li><a class="dropdown-item" href="{% url 'prediabetes' %}">Pre-Diabetes</a></li>
+                                <li><a class="dropdown-item" href="{% url 'sindiabetes' %}">Sin Diabetes</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Menú Desplegable de Consejos y Datos Útiles -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">Aprende Más</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'info' %}">Prevención</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Menú Desplegable de Conócenos -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">Conócenos</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Barra de búsqueda simplificada con icono -->
+                <div class="navbar align-self-center d-flex">
+                    <div class="input-group">
+                        <input type="text" class="form-control search-input" id="inputSearch" placeholder="Buscar...">
+                        <button class="btn btn-outline-secondary search-btn" onclick="searchMenu()">
+                            <i class="fa fa-fw fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class=" mt-4 content">
+        {% block template %}
+        {% endblock %}
+    </div>
+    <!-- Footer -->
+    <footer class="text-white py-5" style="background-color: #0a6996;">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Columna 1: Información de Diabetes -->
+                <div class="col">
+                    <h2 class="h2 border-bottom pb-3 logo text-white">Diabetes</h2>
+                    <ul class="list-unstyled footer-link-list">
+                        <li class="mb-3"><i class="fas fa-map-marker-alt fa-fw"></i> <a
+                                class="text-decoration-none text-white"
+                                href="https://www.google.com/maps/search/?api=1&query=123+Sector+7+Grupo+26+Mz+P"
+                                target="_blank">123 Sector 7 Grupo 26 Mz P</a></li>
+                        <li class="mb-3"><i class="fa fa-phone fa-fw"></i><a class="text-decoration-none text-white"
+                                href="tel:010-020-0340"> 010-020-0340</a></li>
+                        <li class="mb-3"><i class="fa fa-envelope fa-fw"></i><a class="text-decoration-none text-white"
+                                href="mailto:info@company.com"> infoDiabetes@company.com</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 2: Productos -->
+                <div class="col">
+                    <h2 class="h2 border-bottom pb-3 logo text-white">Productos</h2>
+                    <ul class="list-unstyled footer-link-list">
+                        <li class="mb-3"><a class="text-decoration-none text-white"
+                                href="https://www.elmundo.es/yodona/lifestyle/2023/10/12/651d857ae4d4d8c71b8b45ce.html#:~:text=Es%20antiinflamatoria%3A%20ayuda%20a%20controlar,combatir%20virus%2C%20bacterias%20y%20hongos."
+                                target="_blank">Canela</a></li>
+                        <li class="mb-3"><a class="text-decoration-none text-white"
+                                href="https://www.healthline.com/health/es/para-que-sirve-el-vinagre-de-manzana"
+                                target="_blank">Vinagre de manzana</a></li>
+                        <li class="mb-3"><a class="text-decoration-none text-white"
+                                href="https://www.mayoclinic.org/es/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/fiber/art-20043983#:~:text=Fibra%20soluble.,la%20cebada%20y%20el%20psilio."
+                                target="_blank">Fibra soluble</a></li>
+                        <li class="mb-3"><a class="text-decoration-none text-white"
+                                href="https://medlineplus.gov/spanish/ency/patientinstructions/000727.htm#:~:text=Las%20semillas%20de%20ch%C3%ADa%20son%20ricas%20en%20fibra%2C%20grasas%20saludables,entran%20en%20contacto%20con%20agua."
+                                target="_blank">Semillas de chía</a></li>
+                        <li class="mb-3"><a class="text-decoration-none text-white"
+                                href="https://es.neutrogena.com/the-bar/spice-it-up-7-turmeric-benefits-for-skin.html"
+                                target="_blank">Cúrcuma</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Clínicas Links -->
+                <div class="col">
+                    <h2 class="h2 border-bottom pb-3 logo text-white">Clínicas Links</h2>
+                    <ul class="list-unstyled footer-link-list">
+                        <li class="mb-3"><a class="text-decoration-none text-white"
+                                href="https://www.podocor.com/clinica-del-pie-diabetico/?gad_source=1"
+                                target="_blank">Podocor</a></li>
+                        <li class="mb-3"><a class="text-decoration-none text-white"
+                                href="https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwiwmNX2odCJAxVlU0gAHTEgGDUYABAAGgJjZQ&co=1&ase=2&ohost=www.google.com&cid=CAESVuD2lg72auTRkf9iQS9M9A1nilnY4crC7XdbNaecdFgj7LU8HjMJNE6PWpq2H3fDgAF7mCUQr2lZWRC0T5rON8r3yJsWJ3MwhjU3fLwdUqV3AiZAO9PW&sig=AOD64_3hkK6slmbJwe7tJp6Imvsstqx0EA&q&nis=4&adurl&ved=2ahUKEwiy-c_2odCJAxUGrJUCHdYuMmAQ0Qx6BAgMEAE"
+                                target="_blank">Clínica Neuropatía Diabética</a></li>
+                        <li class="mb-3"><a class="text-decoration-none text-white"
+                                href="https://skinmedical.com.pe/tratamiento-de-pie-diabetico/?gad_source=1"
+                                target="_blank">Clínica del Pie Diabético</a></li>
+                        <li class="mb-3 "><a class="text-decoration-none text-white"
+                                href="https://clinicadiabetika.com/servicio-de-clinica-especializada-en-diabetes/"
+                                target="_blank">Clínica Diabetika</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ajuste de márgenes en el pie -->
+            <div class="row pt-4 text-center" style="background-color: #0a6996;">
+                <div class="col-12">
+                    <p class="mb-0 text-white" style="background-color: #0a6996;">
+                        2024-II Ingenieria de Sistemas | VI Ciclo Untels
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!-- Scripts -->
+    <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

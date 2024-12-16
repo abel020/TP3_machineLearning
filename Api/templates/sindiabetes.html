@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}Sistema ABC - Resultados de Diabetes{% endblock %}
+
+{% block template %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Pruebas de Diabetes</title>
+    <style>
+       
+        .header-image {
+            width: 27%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+        .title {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .title h2 {
+            font-size: 16px;
+            color: #888;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .title h1 {
+            font-size: 28px;
+            color: #333;
+            margin: 10px 0;
+        }
+        .resultado {
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .mensaje {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .consejos, .proximos-pasos {
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="{% static 'imagenes/sindiabe.jpg' %}" alt="Imagen de resultados de sin diabetes" class="header-image">
+        <div class="title">
+            <h2>Resultados de Pruebas</h2>
+            <h1>Consejos si no tiene diabetes</h1>
+        </div>
+
+      
+     
+
+        <div class="resultado" id="sin-diabetes">
+            <div class="mensaje">Su prueba indica que no tiene diabetes. Sus niveles de glucosa en sangre están dentro de los rangos normales.</div>
+            <div class="informacion-adicional">
+                <h2>Información Adicional:</h2>
+                <div class="consejos">Consejos para Mantenimiento: "Continúe llevando un estilo de vida saludable. Mantenga una dieta balanceada, haga ejercicio regularmente, evite el tabaquismo y limite el consumo de alcohol para conservar una buena salud metabólica."</div>
+                <div class="proximos-pasos">Próximos Pasos: "Se recomienda realizar exámenes de control periódicos, especialmente si tiene antecedentes familiares de diabetes o factores de riesgo adicionales."</div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

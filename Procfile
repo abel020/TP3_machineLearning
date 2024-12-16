@@ -1,0 +1,1 @@
+web : python manage.py collectstatic && gunicorn P_Api_D.wsgi

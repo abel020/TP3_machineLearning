@@ -1,0 +1,645 @@
+{% extends "base.html" %}
+{% block template %}
+{% load static %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Predicción de Diabetes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilo personalizado para el texto de ayuda */
+        .custom-text-muted {
+            color: #cccccc !important;
+            /* Forzar el color claro */
+            font-size: 0.9em;
+        }
+
+        .search-input {
+            background-color: white !important;
+            color: black !important;
+            border: 1px solid #ccc;
+            /* Cambia según tu diseño */
+        }
+
+        .search-btn {
+            background-color: white !important;
+            color: black !important;
+            border: 1px solid #ccc;
+            /* Cambia según tu diseño */
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #f0f0f0;
+            color: #2f2d2d;
+            border: 1px solid #5c5c5c;
+        }
+
+        .btn-primary {
+            background-color: #4a90e2;
+            margin-bottom: 20px;
+            border: none;
+            margin-top: 20px;
+
+        }
+
+        #resultado {
+            background-color: #444444;
+            color: #ffffff;
+            font-size: 18px;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+            margin-top: 20px;
+        }
+
+        /* Estilo para el gráfico circular */
+        .circle-chart {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background: conic-gradient(#4a90e2 var(--percent), #888 var(--percent));
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .circle-chart .inner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #e6e6e6;
+        }
+
+        /* Contenedor de la gráfica */
+        #miGrafica {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 15px;
+            background: #f5f5f5;
+            /* Fondo suave */
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Título de la gráfica */
+        .chart-title {
+            font-size: 1.5em;
+            color: #333333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* Etiquetas de los ejes */
+        .chart-axis-label {
+            font-weight: 600;
+            color: #555555;
+        }
+
+        /* Estilo de la leyenda de la gráfica */
+        .chart-legend {
+            font-size: 0.9em;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        /* Resumen de resultados debajo de la gráfica */
+        #resumenResultados {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            font-size: 1.1em;
+            display: none;
+        }
+
+        .resultado-item {
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #ffffff;
+        }
+
+        .acierto {
+            background-color: #4CAF50;
+            /* Verde */
+        }
+
+        .error {
+            background-color: #F44336;
+            /* Rojo */
+        }
+
+        /* Pequeño texto debajo de cada campo en el formulario */
+        .form-text {
+            font-size: 0.85em;
+            color: #666666;
+            /* Color más oscuro para mejor visibilidad */
+        }
+
+        ------------- .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        /* Estilos para los globos con imagen */
+        .balloon {
+            position: fixed;
+            bottom: -100px;
+            /* Ajusta la posición vertical del globo */
+            background-image: url('{% static "imagenes/globo.png" %}');
+            background-size: contain;
+            /* Ajusta la imagen al tamaño del globo */
+            background-repeat: no-repeat;
+            /* No repetir la imagen */
+            width: 100px;
+            /* Tamaño del globo (más grande) */
+            height: 130px;
+            /* Tamaño del globo (más grande) */
+            animation: float 2s ease-in-out infinite;
+            opacity: 1;
+            background-color: transparent;
+            /* Asegura que no haya color de fondo */
+            border: none;
+            /* Elimina cualquier borde que pueda haber */
+        }
+
+        /* Elimina la cuerda o palito del globo */
+        .balloon::after {
+            content: none;
+            /* Elimina el "palito" */
+        }
+
+        /* Animación de flotación */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-800px);
+                opacity: 0;
+            }
+        }
+
+
+        /* Estilo para la gráfica, inicialmente oculta */
+        #miGrafica {
+            display: none;
+            /* La gráfica está oculta por defecto */
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container text-center">
+        <h1 class="mb-4">Formulario de Predicción de Diabetes</h1>
+        <form id="predictionForm" class="needs-validation" novalidate onsubmit="event.preventDefault(); enviarDatos();">
+            <div class="row g-3 text-start">
+                <!-- Campos traducidos y convertidos a opciones -->
+                <div class="col-md-6">
+                    <label for="HighBP" class="form-label">¿Tiene presión arterial alta?</label>
+                    <select class="form-select" id="HighBP" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="HighChol" class="form-label">¿Tiene colesterol alto?</label>
+                    <select class="form-select" id="HighChol" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="CholCheck" class="form-label">¿Se realizó un chequeo de colesterol en los últimos 5
+                        años?</label>
+                    <select class="form-select" id="CholCheck" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <!-- IMC -->
+                <div class="form-group">
+                    <label for="bmi">Índice de Masa Corporal (IMC):</label>
+                    <input type="number" id="bmi" class="form-control" max="98" step="0.1" required
+                        style="width: 550px;">
+                    <small class="form-text text-muted">Por favor, ingrese su IMC (máximo 98).</small>
+                    <!-- Mensaje de advertencia, oculto por defecto -->
+                    <div id="error-bmi" class="error-message" style="color: red; display: none;">
+                        El IMC no puede ser mayor a 98. ¡Corrige el valor!
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                    <label for="Smoker" class="form-label">¿Ha fumado al menos 100 cigarrillos en su vida?</label>
+                    <select class="form-select" id="Smoker" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="Stroke" class="form-label">¿Le han informado que tuvo un derrame cerebral?</label>
+                    <select class="form-select" id="Stroke" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="HeartDiseaseorAttack" class="form-label">¿Tiene enfermedad cardíaca o ha tenido un
+                        ataque al corazón?</label>
+                    <select class="form-select" id="HeartDiseaseorAttack" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="PhysActivity" class="form-label">¿Ha realizado actividad física en los últimos 30 días
+                        (excepto trabajo)?</label>
+                    <select class="form-select" id="PhysActivity" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="Fruits" class="form-label">¿Consume frutas una o más veces al día?</label>
+                    <select class="form-select" id="Fruits" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="Veggies" class="form-label">¿Consume verduras una o más veces al día?</label>
+                    <select class="form-select" id="Veggies" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="HvyAlcoholConsump" class="form-label">Consumo elevado de alcohol (Hombres >=14, Mujeres
+                        >=7 tragos por semana)</label>
+                    <select class="form-select" id="HvyAlcoholConsump" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="AnyHealthcare" class="form-label">¿Cuenta con algún tipo de seguro de salud o cobertura
+                        médica?</label>
+                    <select class="form-select" id="AnyHealthcare" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="NoDocbcCost" class="form-label">¿No pudo ver al médico en el último año por falta de
+                        dinero?</label>
+                    <select class="form-select" id="NoDocbcCost" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="GenHlth" class="form-label">¿Cómo califica su salud general?</label>
+                    <select class="form-select" id="GenHlth" required>
+                        <option value="0"></option>
+                        <option value="1">Excelente</option>
+                        <option value="2">Muy buena</option>
+                        <option value="3">Buena</option>
+                        <option value="4">Regular</option>
+                        <option value="5">Mala</option>
+                    </select>
+                </div>
+                <!-- Salud Mental -->
+                <div class="form-group">
+                    <label for="mentHlth">¿Cuántos días en los últimos 30 días ha tenido problemas de salud
+                        mental?</label>
+                    <input type="number" id="mentHlth" class="form-control" min="0" max="30" required 
+                    style="width: 550px;">
+                    <small class="form-text text-muted">Ingrese un número entre 0 y 30.</small>
+                    <!-- Mensaje de advertencia, oculto por defecto -->
+                    <div id="error-mentHlth" class="error-message" style="color: red; display: none;">Debe ingresar un
+                        valor entre 0 y 30. ¡Corrige el valor!</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="PhysHlth">¿Cuántos días en los últimos 30 días ha sentido que su salud física ha sido
+                        deficiente?</label>
+                    <input type="number" id="PhysHlth" class="form-control" min="0" max="30" required
+                    style="width: 550px;">
+                    <small class="form-text text-muted ">Ingrese un número entre 0 y 30.</small>
+                    <!-- Mensaje de advertencia, oculto por defecto -->
+                    <div id="error-PhysHlth" class="error-message" style="color: red; display: none;">Debe ingresar un
+                        valor entre 0 y 30. ¡Corrige el valor!</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="DiffWalk" class="form-label">¿Tiene dificultad para caminar o subir escaleras?</label>
+                    <select class="form-select" id="DiffWalk" required>
+                        <option value="0"></option>
+                        <option value="1">No</option>
+                        <option value="2">Sí</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="Sex" class="form-label">Sexo</label>
+                    <select class="form-select" id="Sex" required>
+                        <option value="0"></option>
+                        <option value="1">Femenino</option>
+                        <option value="2">Masculino</option>
+                    </select>
+                </div>
+                <!-- Edad -->
+                <div class="form-group">
+                    <label for="age">Edad:</label>
+                    <select id="age" class="form-control" required
+                    style="width: 550px;">
+                        <option value="">Seleccione una opción</option>
+                        <option value="1">18 - 24 años</option>
+                        <option value="2">25 - 29 años</option>
+                        <option value="3">30 - 34 años</option>
+                        <option value="4">35 - 39 años</option>
+                        <option value="5">40 - 44 años</option>
+                        <option value="6">45 - 49 años</option>
+                        <option value="7">50 - 54 años</option>
+                        <option value="8">55 - 59 años</option>
+                        <option value="9">60 - 64 años</option>
+                        <option value="10">65 - 69 años</option>
+                        <option value="11">70 - 74 años</option>
+                        <option value="12">75 - 79 años</option>
+                        <option value="13">80 años o más</option>
+                    </select>
+                </div>
+                <!-- Educación -->
+                <div class="form-group">
+                    <label for="education">Nivel educativo:</label>
+                    <select id="education" class="form-control" required
+                    style="width: 550px;">
+                        <option value="">Seleccione una opción</option>
+                        <option value="1">Nunca asistió a la escuela o solo jardín de infantes</option>
+                        <option value="2">Grados 1 - 8 (Primaria)</option>
+                        <option value="3">Grados 9 - 11 (Algunos estudios secundarios)</option>
+                        <option value="4">Grado 12 o GED (Graduado de secundaria)</option>
+                        <option value="5">1 a 3 años de universidad (Algunos estudios universitarios o técnico)</option>
+                        <option value="6">4 años o más de universidad (Graduado universitario)</option>
+                    </select>
+                </div>
+                <!-- Ingreso -->
+                <div class="form-group">
+                    <label for="income">Escala de ingresos:</label>
+                    <select id="income" class="form-control" required
+                    style="width: 550px;">
+                        <option value="">Seleccione una opción</option>
+                        <option value="1">Menos de $10,000</option>
+                        <option value="2">De $10,000 a menos de $15,000</option>
+                        <option value="3">De $15,000 a menos de $20,000</option>
+                        <option value="4">De $20,000 a menos de $25,000</option>
+                        <option value="5">De $25,000 a menos de $35,000</option>
+                        <option value="6">De $35,000 a menos de $50,000</option>
+                        <option value="7">De $50,000 a menos de $75,000</option>
+                        <option value="8">$75,000 o más</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Aquí va tu formulario -->
+            <button type="submit" class="btn btn-primary"
+                onclick="generateBalloons(event);enviarDatos()">Enviar</button>
+        </form>
+
+        <!-- Cambia los valores de estilo para JavaScript -->
+        <script>
+            // Función para generar globos
+            function generateBalloons(event) {
+                event.preventDefault();  // Evita que el formulario se envíe
+
+                for (let i = 0; i < 20; i++) { // Número de globos
+                    let balloon = document.createElement("div");
+                    balloon.classList.add("balloon");
+
+                    // Posición aleatoria y tamaño
+                    balloon.style.left = Math.random() * 100 + "vw";  // Posición horizontal aleatoria
+                    balloon.style.bottom = "-100px";  // Inicialmente el globo estará por debajo de la pantalla
+                    balloon.style.animation = "float 6s ease-in-out infinite";  // Animación de flotación
+                    balloon.style.opacity = 1;  // Asegura que el globo esté visible
+
+                    // Asignación de la imagen del globo (usa la ruta directa a la imagen)
+                    balloon.style.backgroundImage = "url('/static/imagenes/globo.png')";  // Ruta directa
+
+                    // Ajusta el tamaño de la imagen dentro del div
+                    balloon.style.backgroundSize = "contain";  // Ajusta la imagen al tamaño del globo
+                    balloon.style.backgroundRepeat = "no-repeat";  // No repetir la imagen
+
+                    // Tamaño aleatorio para los globos (pero dentro de un rango específico)
+                    balloon.style.width = Math.random() * 60 + 90 + "px";  // Tamaño aleatorio para el ancho
+                    balloon.style.height = Math.random() * 70 + 100 + "px";  // Tamaño aleatorio para la altura
+
+                    // Agregar el globo al documento
+                    document.body.appendChild(balloon);
+
+                    // Eliminar el globo después de la animación
+                    setTimeout(() => {
+                        balloon.remove();
+                    }, 6000); // Duración de la animación (debe coincidir con la duración de la animación en CSS)
+                }
+            }
+        </script>
+
+
+
+        <!-- HTML para la gráfica -->
+        <canvas id="miGrafica"></canvas>
+
+        <!-- Contenedor para el resumen de resultados -->
+        <div id="resumenResultados" style="margin-bottom: 50px;">
+            <div class="resultado-item acierto">
+                <strong>No Diabetes:</strong> <span id="porcentajeAcierto"></span>
+            </div>
+            <div class="resultado-item error">
+                <strong>Diabetes:</strong> <span id="porcentajeError"></span>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+        <script>
+            let myChart;
+            function enviarDatos() {
+                const features = [
+                    parseFloat(document.getElementById('HighBP').value),
+                    parseFloat(document.getElementById('HighChol').value),
+                    parseFloat(document.getElementById('CholCheck').value),
+                    parseFloat(document.getElementById('bmi').value),
+                    parseFloat(document.getElementById('Smoker').value),
+                    parseFloat(document.getElementById('Stroke').value),
+                    parseFloat(document.getElementById('HeartDiseaseorAttack').value),
+                    parseFloat(document.getElementById('PhysActivity').value),
+                    parseFloat(document.getElementById('Fruits').value),
+                    parseFloat(document.getElementById('Veggies').value),
+                    parseFloat(document.getElementById('HvyAlcoholConsump').value),
+                    parseFloat(document.getElementById('AnyHealthcare').value),
+                    parseFloat(document.getElementById('NoDocbcCost').value),
+                    parseFloat(document.getElementById('GenHlth').value),
+                    parseFloat(document.getElementById('mentHlth').value),
+                    parseFloat(document.getElementById('PhysHlth').value),
+                    parseFloat(document.getElementById('DiffWalk').value),
+                    parseFloat(document.getElementById('Sex').value),
+                    parseFloat(document.getElementById('age').value),
+                    parseFloat(document.getElementById('education').value),
+                    parseFloat(document.getElementById('income').value)
+                ];
+
+                fetch('/api/predict/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ features: features })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        if (data.error) {
+                            alert('Error: ' + data.error);
+                        } else {
+                            document.getElementById('porcentajeAcierto').textContent = `${(data.probabilities[0] * 100).toFixed(1)}%`;
+                            document.getElementById('porcentajeError').textContent = `${(data.probabilities[1] * 100).toFixed(1)}%`;
+
+                            // Si la gráfica ya existe, destrúyela antes de crear una nueva
+                            if (myChart) {
+                                myChart.destroy();
+                            }
+                            const ctx = document.getElementById('miGrafica').getContext('2d');
+                            myChart = new Chart(ctx, {
+                                type: 'pie', // Tipo de gráfica
+                                data: {
+                                    labels: ['Probabilidad de No Diabetes', 'Probabilidad de Diabetes'],
+                                    datasets: [{
+                                        data: data.probabilities,
+                                        backgroundColor: ['#4CAF50', '#F44336'], // Colores para diabetes y no diabetes
+                                        hoverBackgroundColor: ['#81C784', '#E57373'] // Colores al pasar el cursor
+                                    }]
+                                },
+                                options: {
+                                    plugins: {
+                                        legend: {
+                                            display: true,
+                                            position: 'bottom',
+                                            labels: {
+                                                color: '#333',
+                                                font: {
+                                                    size: 14,
+                                                    weight: 'bold'
+                                                }
+                                            }
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Predicción de Diabetes',
+                                            color: '#333',
+                                            font: {
+                                                size: 18,
+                                                weight: 'bold'
+                                            }
+                                        },
+                                        tooltip: {
+                                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                            titleColor: '#ffffff',
+                                            bodyColor: '#cccccc'
+                                        }
+                                    }
+                                }
+                            });
+                            // Hacer visible el resumen de resultados
+                            const resumen = document.getElementById('resumenResultados');
+                            if (resumen) {
+                                resumen.style.display = 'flex'; // Muestra el resumen como un contenedor flexible
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }
+            //mensaje de limitacion 
+
+            // Función genérica para mostrar/ocultar mensajes de error
+            function validateField(input, errorMessage, minValue, maxValue) {
+                const value = parseFloat(input.value); // Obtener el valor del campo
+
+                // Validar si el valor está dentro del rango permitido
+                if (value < minValue || value > maxValue) {
+                    errorMessage.style.display = 'block'; // Mostrar mensaje
+                } else {
+                    errorMessage.style.display = 'none'; // Ocultar mensaje
+                }
+            }
+
+            // Función que se ejecuta cuando el campo pierde el foco (blur)
+            function addValidation(inputId, errorMessageId, minValue, maxValue) {
+                const input = document.getElementById(inputId);
+                const errorMessage = document.getElementById(errorMessageId);
+
+                // Ejecutar validación cuando el campo pierde el foco
+                input.addEventListener('blur', function () {
+                    validateField(input, errorMessage, minValue, maxValue);
+                });
+
+                // Validar cuando el formulario sea enviado
+                const form = document.querySelector('form');
+                form.addEventListener('submit', function (event) {
+                    const value = parseFloat(input.value);
+
+                    // Si el valor no está en el rango, prevenir el envío del formulario
+                    if (value < minValue || value > maxValue) {
+                        errorMessage.style.display = 'block';
+                        event.preventDefault();  // Prevenir envío del formulario
+                    }
+                });
+            }
+
+            // Llamar a la función de validación para cada campo
+            window.onload = function () {
+                addValidation('bmi', 'error-bmi', 0, 98); // Para el campo IMC (máximo 98)
+                addValidation('mentHlth', 'error-mentHlth', 0, 30); // Para el campo salud mental (0-30)
+                addValidation('PhysHlth', 'error-PhysHlth', 1, 30); // Para el campo salud física (1-30)
+            }
+
+        </script>
+
+</body>
+
+</html>
+{% endblock %}
