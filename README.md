@@ -2,11 +2,11 @@
 
 ## Descripción
 
-Este proyecto utiliza el algoritmo K-Nearest Neighbors (KNN) para predecir la diabetes a partir de datos ingresados a través de un formulario. El proyecto está desarrollado con el framework Django y se ha desplegado en Railway. Utiliza SQLite como base de datos.
+Este proyecto implementa un modelo predictivo basado en el algoritmo K-Nearest Neighbors (KNN) para predecir la probabilidad de diabetes a partir de datos ingresados por el usuario en un formulario web. El modelo fue entrenado utilizando un dataset balanceado al 50% entre casos con y sin diabetes, almacenado en el archivo modelo_knn_diabetes5050.pkl. El desarrollo se realizó con el framework Django, ofreciendo una interfaz web funcional y amigable, y se desplegó en la plataforma Railway para garantizar su disponibilidad y fácil acceso.
 
 ## Autor
 
-Gomez Abel
+Gomez Nuñez Abel Anderson
 
 ## Tecnologías Utilizadas
 
@@ -14,8 +14,15 @@ Gomez Abel
 - **Scikit-learn**: Biblioteca de Python para Machine Learning.
 - **Pandas**: Biblioteca para manipulación de datos.
 - **NumPy**: Biblioteca para computación numérica.
-- **SQLite**: Base de datos ligera.
 - **Railway**: Plataforma para el despliegue de aplicaciones.
+
+## Dataset Utilizado
+
+El modelo fue entrenado utilizando un dataset de indicadores de salud relacionado con la diabetes, disponible en Kaggle. Este dataset incluye información recopilada a partir de la encuesta BRFSS 2015, equilibrada al 50% entre individuos con y sin diabetes.  
+
+Puedes encontrar más detalles sobre el dataset en el siguiente enlace:  
+[Diabetes Health Indicators Dataset](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset)
+
 
 ## Instalación
 
